@@ -17,7 +17,7 @@ jobs:
       - name: Set up JDK 17
         uses: actions/setup-java@v2
         with:
-          distribution: 'temurin' # Adicione esta linha
+          distribution: 'temurin'
           java-version: '17'
 
       - name: Build with Maven
@@ -26,11 +26,9 @@ jobs:
       - name: Run tests
         run: mvn test
 
+      # Build da imagem Docker usando o Dockerfile na raiz do projeto
       - name: Build Docker image
-        run: docker build -t <your-docker-repo>/gestao-residuos:${{ github.sha }} .
-
-      - name: Push Docker image to DockerHub
-        run: docker push <your-docker-repo>/gestao-residuos:${{ github.sha }}
+        run: docker build -t coletaai:${{ github.sha }} .
 
   deploy:
     needs: build
